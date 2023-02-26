@@ -13,4 +13,4 @@ dependencies:
 dev_dependencies:
   test: any
   collection: ^1.15.0
-  pedantic: ^1.11.0
+  lints: ^2.0.1

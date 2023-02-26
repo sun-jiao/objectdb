@@ -31,10 +31,10 @@ class Event extends Schema {
 
   @override
   Map toMap() => {
-        'title': title,
-        'description': description,
-        'date': date.millisecondsSinceEpoch,
-      };
+    'title': title,
+    'description': description,
+    'date': date.millisecondsSinceEpoch,
+  };
 }
 
 class MyHomePage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final searchController = TextEditingController();
   final db = SchemaDB<Event>(
     IndexedDBStorage('events'),
-    (data) => Event.fromMap(data),
+        (data) => Event.fromMap(data),
   );
   final List<Event> events = [];
   String search = '';
@@ -104,10 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             db
                 .insert(Event(
-                  lipsum.createWord(numWords: 3),
-                  lipsum.createSentence(numSentences: 2),
-                  DateTime.now(),
-                ))
+              lipsum.createWord(numWords: 3),
+              lipsum.createSentence(numSentences: 2),
+              DateTime.now(),
+            ))
                 .then((_) => updateFromDB());
           },
           child: Icon(Icons.plus_one)),
