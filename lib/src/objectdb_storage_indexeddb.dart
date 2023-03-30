@@ -4,8 +4,8 @@ import 'package:objectdb/src/objectdb_storage_interface.dart';
 import 'package:objectid/src/objectid/objectid.dart';
 import 'package:objectdb/src/objectdb_meta.dart';
 
-import 'dart:indexed_db';
-import 'dart:html';
+import "package:idb_shim/idb_shim.dart";
+import 'package:idb_shim/idb_browser.dart';
 
 /// Stores data in indexeddb (browser only)
 class IndexedDBStorage extends StorageInterface {
@@ -17,9 +17,10 @@ class IndexedDBStorage extends StorageInterface {
   @override
   Future<Meta> open([int version = 1]) async {
     _version = version;
-    _db = await window.indexedDB!.open(_name, version: 1, onUpgradeNeeded: (e) {
-      Database db = e.target.result;
-      if (!db.objectStoreNames!.contains('_')) {
+    IdbFactory? idbFactory = getIdbFactory();
+    _db = await idbFactory!.open(_name, version: 1, onUpgradeNeeded: (e) {
+      Database db = (e.target as Request).result;
+      if (!db.objectStoreNames.contains('_')) {
         db.createObjectStore('_');
       }
     });
@@ -34,7 +35,7 @@ class IndexedDBStorage extends StorageInterface {
       return Meta(1);
     }
 
-    return Meta(res['client_version']);
+    return Meta(res);
   }
 
   @override
@@ -56,8 +57,8 @@ class IndexedDBStorage extends StorageInterface {
     var tx = _db.transaction('_', 'readonly');
     var cur = tx.objectStore('_').openCursor(autoAdvance: true);
     var res = cur
-        .where((entry) => entry.key != '\$objectdb' && match(entry.value))
-        .map<Map<dynamic, dynamic>>((entry) => entry.value);
+        .where((entry) => entry.key != '\$objectdb' && match(entry.value as Map<dynamic, dynamic>))
+        .map<Map<dynamic, dynamic>>((entry) => entry.value as Map<dynamic, dynamic>);
 
     if (filter == Filter.last) {
       return Stream.fromIterable([await res.last]);
@@ -81,7 +82,7 @@ class IndexedDBStorage extends StorageInterface {
     var tx = _db.transaction('_', 'readwrite');
     var cur = tx.objectStore('_').openCursor(autoAdvance: true);
     var i = 0;
-    await cur.where((entry) => match(entry.value)).forEach((element) {
+    await cur.where((entry) => match(entry.value as Map<dynamic, dynamic>)).forEach((element) {
       i++;
       element.delete();
     });
@@ -94,10 +95,10 @@ class IndexedDBStorage extends StorageInterface {
     var tx = _db.transaction('_', 'readwrite');
     var cur = tx.objectStore('_').openCursor(autoAdvance: true);
     var i = 0;
-    await cur.where((entry) => match(entry.value)).forEach((element) {
+    await cur.where((entry) => match(entry.value as Map<dynamic, dynamic>)).forEach((element) {
       i++;
       element.update(
-          StorageInterface.applyUpdate(element.value, changes, replace));
+          StorageInterface.applyUpdate(element.value as Map<dynamic, dynamic>, changes, replace));
     });
     return i;
   }
@@ -107,13 +108,13 @@ class IndexedDBStorage extends StorageInterface {
     var match = createMatcher(query);
     var tx = _db.transaction('_', 'readwrite');
     var cur = tx.objectStore('_').openCursor(autoAdvance: true);
-    var list = await cur.where((entry) => match(entry.value)).toList();
+    var list = await cur.where((entry) => match(entry.value as Map<dynamic, dynamic>)).toList();
     if (list.isEmpty) {
       return insert(changesOrData);
     } else if (list.length == 1) {
       await list.first.update(
-          StorageInterface.applyUpdate(list.first.value, changesOrData, true));
-      return list.first.value;
+          StorageInterface.applyUpdate(list.first.value as Map<dynamic, dynamic>, changesOrData, true));
+      return list.first.value as ObjectId;
     } else {
       return null;
     }

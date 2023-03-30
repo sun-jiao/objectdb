@@ -7,10 +7,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
   objectdb:
     path: ..
-  lipsum: ^1.0.1
+  word_generator: ^0.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

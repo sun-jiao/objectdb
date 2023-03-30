@@ -41,14 +41,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.17.0"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.5"
   deeply:
     dependency: transitive
     description:
@@ -83,6 +75,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  idb_shim:
+    dependency: transitive
+    description:
+      name: idb_shim
+      sha256: "7e2ad3d36a4eb549813d1ef10694c0f1fd5b4713a2021f19569c752e74b54cef"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.3.0+1"
   js:
     dependency: transitive
     description:
@@ -91,14 +91,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.5"
-  lipsum:
-    dependency: "direct main"
-    description:
-      name: lipsum
-      sha256: "6651e6eef65d9afd5f48d170561e9dbf4373b1c22073c4b5810544be53a0de6e"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
@@ -146,6 +138,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.2"
+  sembast:
+    dependency: transitive
+    description:
+      name: sembast
+      sha256: "4997717aa84f0622691815d7e2739988b7f7d3a463302fc878f7d5acfa748e96"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.4.0+6"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -183,6 +183,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.0"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      sha256: "33b31b6beb98100bf9add464a36a8dd03eb10c7a8cf15aeec535e9b054aaf04b"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.1"
   term_glyph:
     dependency: transitive
     description:
@@ -207,5 +215,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.4"
+  word_generator:
+    dependency: "direct main"
+    description:
+      name: word_generator
+      sha256: "92235d7e8a8e508c1d08dca93ae1aa56c4982009313318fff3ed79194af7ff4c"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.2"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.19.0 <3.0.0"

@@ -9,6 +9,7 @@ dependencies:
   execution_queue: ^1.2.0
   deeply: ^1.2.0+1
   objectid: ^2.0.0
+  idb_shim: ^2.3.0+1
 
 dev_dependencies:
   test: any

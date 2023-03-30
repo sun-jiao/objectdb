@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:objectdb/objectdb.dart';
 import 'package:objectdb/src/objectdb_storage_indexeddb.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:lipsum/lipsum.dart' as lipsum;
+import 'package:word_generator/word_generator.dart';
 
 void main() {
   runApp(MyApp());
@@ -81,6 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final wordGenerator = WordGenerator();
+
     return Scaffold(
       appBar: AppBar(
           title: TextField(
@@ -104,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             db
                 .insert(Event(
-              lipsum.createWord(numWords: 3),
-              lipsum.createSentence(numSentences: 2),
+              wordGenerator.randomNoun(),
+              wordGenerator.randomSentence(3),
               DateTime.now(),
             ))
                 .then((_) => updateFromDB());
